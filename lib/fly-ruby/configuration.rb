@@ -118,7 +118,7 @@ module Fly
 
     def hijack_database_connection!
       # Don't reset the database URL for on-disk sqlite
-      return if database_uri.scheme.start_with?("sqlite") || database_uri.host !~ /(internal|localhost)/
+      return if database_uri.scheme.start_with?("sqlite") || database_uri.host =~ /(internal|localhost)/
       ENV["DATABASE_URL"] = in_secondary_region? ? secondary_database_url : primary_database_url
     end
 
